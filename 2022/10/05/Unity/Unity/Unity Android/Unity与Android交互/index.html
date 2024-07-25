@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Unity与Android交互 | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C#调用JavaAndroid Studio实现步骤：  使用Android Studio创建一个新的类库，File &gt; New &gt; New Module &gt; Android Library 创建      在对应的类库当中新建脚本（路径：Projec &gt; Library(类库名称) &gt; src &gt; main &gt; java &gt; package(包名)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unity与Android交互">
+<meta property="og:url" content="https://hui-space.github.io/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="C#调用JavaAndroid Studio实现步骤：  使用Android Studio创建一个新的类库，File &gt; New &gt; New Module &gt; Android Library 创建      在对应的类库当中新建脚本（路径：Projec &gt; Library(类库名称) &gt; src &gt; main &gt; java &gt; package(包名)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-10-05T03:50:08.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:54:46.681Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="Unity Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Unity与Android交互',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:54:46'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Unity与Android交互</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-05T03:50:08.000Z" title="发表于 2022-10-05 11:50:08">2022-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:54:46.681Z" title="更新于 2024-07-25 16:54:46">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/Unity/">Unity</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Unity与Android交互"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="C-调用Java"><a href="#C-调用Java" class="headerlink" title="C#调用Java"></a>C#调用Java</h2><h3 id="Android-Studio"><a href="#Android-Studio" class="headerlink" title="Android Studio"></a>Android Studio</h3><p>实现步骤：</p>
+<ul>
+<li>使用Android Studio创建一个新的类库，File &gt; New &gt; New Module &gt; Android Library 创建</li>
+</ul>
+<p><img src="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/CreateLibrary_01.jpeg"></p>
+<p><img src="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/CreateLibrary_02.jpeg"></p>
+<p><img src="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/CreateLibrary_03.jpeg"></p>
+<ul>
+<li>在对应的类库当中新建脚本（路径：Projec &gt; Library(类库名称) &gt; src &gt; main &gt; java &gt; package(包名)）</li>
+</ul>
+<p><img src="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/CreateJavaScriptPath.jpeg"></p>
+<ul>
+<li>编写对应的测试脚本</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.testlibrary;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> android.util.Log;</span><br><span class="line"><span class="keyword">import</span> com.unity3d.player.UnityPlayer;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Test</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;Message&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">String</span> <span class="variable">Name</span> <span class="operator">=</span> <span class="string">&quot;name&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">SetMessage</span><span class="params">(String message)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Message = message;</span><br><span class="line">        Log.d(Message, <span class="string">&quot;SetMessage: &quot;</span> + message);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//第一个参数游戏物体，第二个参数为方法名称，第三个为对应的参数</span></span><br><span class="line">        UnityPlayer.UnitySendMessage(<span class="string">&quot;Test&quot;</span>,<span class="string">&quot;GetStatic&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">GetMessage</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Log.d(Message, <span class="string">&quot;SetMessage: &quot;</span> + Message);</span><br><span class="line">        <span class="keyword">return</span> Message ;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">SetName</span><span class="params">(String name)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Name = name;</span><br><span class="line">        Log.d(Name, <span class="string">&quot;SetName: &quot;</span>+name);</span><br><span class="line">        UnityPlayer.UnitySendMessage(<span class="string">&quot;Test&quot;</span>,<span class="string">&quot;Get&quot;</span>,<span class="string">&quot;&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">GetName</span><span class="params">()</span></span><br><span class="line">    &#123;</span><br><span class="line">        Log.d(Name, <span class="string">&quot;SetName: &quot;</span>+ Name);</span><br><span class="line">        <span class="keyword">return</span> Name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生成类库Build &gt; Make Project </li>
+<li>生成过后将生成的jar包放到Unity当中（路径1：Library(类库名称) &gt; build &gt; outputs &gt; arr &gt; (Library)-debug.arr ；路径2：Library(类库名称) &gt; build &gt; arr_main_jar &gt; debug &gt; classes.jar）</li>
+</ul>
+<p>注意事项</p>
+<ul>
+<li>查看创建的类库的build.gradle是否为类库(位置：Android &gt; Gradle Scripts &gt;  build.gradle(创建的类库名称))查看第一行是否为：apply plugin: ‘com.android.library’ 后缀为 library，defaultConfig主要是包名和SDK的版本，此时创建类库的时候不需要（不清楚作用请自行搜索：build.gradle）修改参数后请保存</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: &#x27;com.android.library&#x27;</span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion 33</span><br><span class="line">    buildToolsVersion &quot;30.0.3&quot;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    //implementation fileTree(dir: &quot;libs&quot;, include: [&quot;*.jar&quot;])</span><br><span class="line">    implementation &#x27;androidx.appcompat:appcompat:1.1.0&#x27;</span><br><span class="line">    compileOnly files(&#x27;libs\\classes.jar&#x27;)</span><br><span class="line">    testImplementation &#x27;junit:junit:4.12&#x27;</span><br><span class="line">    androidTestImplementation &#x27;androidx.test.ext:junit:1.1.1&#x27;</span><br><span class="line">    androidTestImplementation &#x27;androidx.test.espresso:espresso-core:3.2.0&#x27;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>如果需要Android相关的资源必须(Library)-debug.arr，如果只使用类库使用classes.jar即可，建议只使用(Library)-debug.arr</li>
+</ul>
+<h3 id="Unity"><a href="#Unity" class="headerlink" title="Unity"></a>Unity</h3><p>实现步骤：</p>
+<ul>
+<li>将生成的jar包放置到Unity当中，放置路径Assets &gt; Plugins &gt; Android </li>
+<li>创建C#脚本与Java交互，可使用这两个接口AndroidJavaObject和AndroidJavaClass</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Text text;</span><br><span class="line">    <span class="keyword">public</span> Button btn1;</span><br><span class="line">    <span class="keyword">public</span> Button btn2;</span><br><span class="line">    <span class="keyword">public</span> Button btn3;</span><br><span class="line">    <span class="keyword">public</span> Button btn4;</span><br><span class="line"></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> 传入的参数为Java中对应的类库包的路径(com.example.testlibrary)加上对应的类（Test）</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> AndroidJavaObject javaObject = new AndroidJavaObject(&quot;com.example.testlibrary.Test&quot;);</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> AndroidJavaClass javaObject = new AndroidJavaClass(&quot;com.example.testlibrary.Test&quot;);</span></span><br><span class="line">    <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">    <span class="keyword">private</span> AndroidJavaObject _javaObject;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _javaObject = <span class="keyword">new</span> AndroidJavaObject(<span class="string">&quot;com.example.testlibrary.Test&quot;</span>);</span><br><span class="line">        btn1.onClick.AddListener(GetStatic);</span><br><span class="line">        btn2.onClick.AddListener(Get);</span><br><span class="line">        btn3.onClick.AddListener(SetMessage);</span><br><span class="line">        btn4.onClick.AddListener(SetName);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">GetStatic</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        text.text = _javaObject.GetStatic&lt;String&gt;(<span class="string">&quot;Message&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Get</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        text.text = _javaObject.Get&lt;String&gt;(<span class="string">&quot;Name&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetMessage</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _javaObject.CallStatic(<span class="string">&quot;SetMessage&quot;</span>,<span class="string">&quot;按钮3&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetName</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        _javaObject.Call(<span class="string">&quot;SetName&quot;</span>,<span class="string">&quot;按钮4&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>查询相关接口即可进行调用</li>
+</ul>
+<p>注意事项</p>
+<ul>
+<li>jar包必须放置到Plugins目录下</li>
+<li>相互调用的接口需要打包后才能生效</li>
+<li>查阅Unity文档调用静态与非静态的接口</li>
+</ul>
+<h2 id="Java调用C-代码"><a href="#Java调用C-代码" class="headerlink" title="Java调用C#代码"></a>Java调用C#代码</h2><h3 id="Android-Studio-1"><a href="#Android-Studio-1" class="headerlink" title="Android Studio"></a>Android Studio</h3><p>实现步骤：</p>
+<ul>
+<li>找到对应Unity编辑器的jar包。<ul>
+<li>mono路径：Editor &gt; Data &gt; PlaybackEngines &gt; AndroidPlayer&gt; Variations &gt; mono&gt; Release &gt; Classes &gt; classes.jar</li>
+<li>il2cpp路径：Editor &gt; Data &gt; PlaybackEngines &gt; AndroidPlayer&gt; Variations &gt; il2cpp&gt; Release &gt; Classes &gt; classes.jar</li>
+</ul>
+</li>
+<li>导入到Android Studio的libs文件夹下，路径为 Library(类库名称) &gt; libs</li>
+<li>随后将classes.jar包添加到库当中。右键点击 Add as Library… &gt; OK 等待编译</li>
+<li>编写代码<ul>
+<li>import com.unity3d.player.UnityPlayer</li>
+<li>UnityPlayer.UnitySendMessage(“”,””,””)该方法为调用Unity的接口&#x2F;&#x2F;第一个参数游戏物体，第二个参数为方法名称，第三个为对应的参数</li>
+</ul>
+</li>
+<li>详细代码可以查看上面的Java 的 Test代码</li>
+</ul>
+<p> 注意事项</p>
+<ul>
+<li>因为Unity打包的时候以及将对应版本的classes.jar包打入项目，所以在需要在Android Studio中的classes.jar包不打入包内，具体做法为修改build.gradle：<ul>
+<li>打开build.gradle</li>
+<li>找到对应的classes.jar包将dependencies 修改为compileOnly</li>
+<li>注释掉fileTree</li>
+</ul>
+</li>
+<li>如果直接使用Library(类库名称) &gt; build &gt; arr_main_jar &gt; debug &gt; classes.jar <ul>
+<li>就不需要做任何处理</li>
+<li>如果还引用了其他的第三方库，则库需要将Library(类库名称) &gt; build &gt; intermediates &gt; aar_libs_directory &gt; debug &gt; libs 中的文件添加到Unity中</li>
+</ul>
+</li>
+</ul>
+<h2 id="Android请求权限"><a href="#Android请求权限" class="headerlink" title="Android请求权限"></a>Android请求权限</h2><p>可以在unity请求，Android也可以请求。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/">https://hui-space.github.io/2022/10/05/Unity/Unity/Unity%20Android/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/Unity-Android/">Unity Android</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2022/10/11/Unity/Unity/UGUI/UGUI%E6%98%BE%E7%A4%BA%E7%89%B9%E6%95%88/UGUI%E6%98%BE%E7%A4%BA%E7%89%B9%E6%95%88/" title="UGUI显示特效"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">UGUI显示特效</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E6%8E%A5%E5%85%A5SDK(Android)/" title="Unity接入SDK(Android)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Unity接入SDK(Android)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/HUI-Blogs/2022/10/04/Unity/Unity/Unity%20Android/Android%E6%89%93%E5%8C%85/" title="Android打包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-04</div><div class="title">Android打包</div></div></a></div><div><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/Unity%E6%8E%A5%E5%85%A5SDK(Android)/" title="Unity接入SDK(Android)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-05</div><div class="title">Unity接入SDK(Android)</div></div></a></div><div><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%20Android/%E6%89%93%E5%8C%85/" title="打包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-05</div><div class="title">打包</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E8%B0%83%E7%94%A8Java"><span class="toc-number">1.</span> <span class="toc-text">C#调用Java</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-Studio"><span class="toc-number">1.1.</span> <span class="toc-text">Android Studio</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Unity"><span class="toc-number">1.2.</span> <span class="toc-text">Unity</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Java%E8%B0%83%E7%94%A8C-%E4%BB%A3%E7%A0%81"><span class="toc-number">2.</span> <span class="toc-text">Java调用C#代码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Android-Studio-1"><span class="toc-number">2.1.</span> <span class="toc-text">Android Studio</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E8%AF%B7%E6%B1%82%E6%9D%83%E9%99%90"><span class="toc-number">3.</span> <span class="toc-text">Android请求权限</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Memory/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/06/06/Unity/Unity/HybridCLR/HybridCLR/" title="HybridCLR">HybridCLR</a><time datetime="2023-06-06T15:53:14.000Z" title="发表于 2023-06-06 23:53:14">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

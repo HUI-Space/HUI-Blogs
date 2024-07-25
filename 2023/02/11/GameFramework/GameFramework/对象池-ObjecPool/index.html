@@ -1,0 +1,215 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>对象池-ObjecPool | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="作用主要原理就是对象池。在程序当中主要作用是防止对象被频繁创建和销毁、减少GC、预加载等作用。对象池一般用于存储UnityEngine下的对象（如Unity中的GameObject对象）。 目录 ObjectPool ObjectBase  ObjectPoolBase IObjectPool  IObjectPoolManager ObjectPoolManager ObjectPoolMana">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对象池-ObjecPool">
+<meta property="og:url" content="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="作用主要原理就是对象池。在程序当中主要作用是防止对象被频繁创建和销毁、减少GC、预加载等作用。对象池一般用于存储UnityEngine下的对象（如Unity中的GameObject对象）。 目录 ObjectPool ObjectBase  ObjectPoolBase IObjectPool  IObjectPoolManager ObjectPoolManager ObjectPoolMana">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-02-11T04:06:31.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:43:50.268Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="GameFramework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '对象池-ObjecPool',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:43:50'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">对象池-ObjecPool</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-11T04:06:31.000Z" title="发表于 2023-02-11 12:06:31">2023-02-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:43:50.268Z" title="更新于 2024-07-25 16:43:50">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/GameFramework/">GameFramework</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="对象池-ObjecPool"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>主要原理就是对象池。在程序当中主要作用是防止对象被频繁创建和销毁、减少GC、预加载等作用。对象池一般用于存储UnityEngine下的对象（如Unity中的GameObject对象）。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>ObjectPool<ul>
+<li>ObjectBase </li>
+<li>ObjectPoolBase</li>
+<li>IObjectPool </li>
+<li>IObjectPoolManager</li>
+<li>ObjectPoolManager</li>
+<li>ObjectPoolManager.Object</li>
+<li>ObjectPoolManager.ObjectPool</li>
+<li>ObjectInfo</li>
+<li>ReleaseObjectFilterCallback</li>
+</ul>
+</li>
+</ul>
+<h3 id="对象部分"><a href="#对象部分" class="headerlink" title="对象部分"></a>对象部分</h3><h4 id="ObjectBase-对象基类"><a href="#ObjectBase-对象基类" class="headerlink" title="ObjectBase 对象基类"></a>ObjectBase 对象基类</h4><p>GF的对象池并没有直接存储目标对象，而是存储的ObjectBase对象，目标对象的存储在该类的m_Target字段，也就是说对于我们需要存储的对象，需要重新实现一个继承ObjectBase的类，这个类作为目标对象的容器，主要作用是避免与GF耦合，另外该类也记录目标对象的信息，如名称，目标对象，锁定状态，优先级，自定义释放检查标记，上次使用时间。通过Initialize初始化对象相关信息，重写OnSpawn、OnUnspawn方法实现对象获取、回收是执行额外逻辑。该类实现了IReference接口，外部获取其子类时应该从引用池获取。</p>
+<h4 id="ObjectPoolManager-Object"><a href="#ObjectPoolManager-Object" class="headerlink" title="ObjectPoolManager.Object"></a>ObjectPoolManager.Object</h4><p>该类为ObjectPoolManager内部对象,其主要作用是直接存储泛型类Object的对象，Object泛型约束为ObjectBase类型，类中有一个类型为泛型T的字段，这个字段会引用对应的ObjectBase对象。对象池不直接访问ObjectBase对象而是访问ObjectPoolManager内部对象Object，Object主要属性是直接返回ObjectBase 对象的属性，Object还会记录目标对象的是否正在使用状态以及获取计数。ObjectBase的OnSpawn和OnUnspawn也是通过Object的Spawn和UnSpawn调用。</p>
+<p>该对象的继承了IReference接口，并且该对象的创建是通过调用Create方法，随后从引用池获取对象，并且该对象也实现了IReference，在实现的IReference的过程中也通过引用池释放对象，外部无需管理该对象。</p>
+<h3 id="对象池部分"><a href="#对象池部分" class="headerlink" title="对象池部分"></a>对象池部分</h3><h4 id="IObjectPool接口与ObjectPoolBase对象池基类"><a href="#IObjectPool接口与ObjectPoolBase对象池基类" class="headerlink" title="IObjectPool接口与ObjectPoolBase对象池基类"></a>IObjectPool接口与ObjectPoolBase对象池基类</h4><p>IObjectPool接口为对象池泛型接口，并且限制了对象池的对象必须是ObjectBase类型。</p>
+<p>ObjectPoolBase抽象池基类不是泛型，其主要主要作用ObjectPoolManager同时获取所有对象池的一些通用数据时使用。</p>
+<p>二者主要区别在于IObjectPool接口明确知道存储的对象类型。ObjectPoolBase适合处理集合通用逻辑，而IObjectPool适合处理对具体目标对象的操作。</p>
+<h4 id="ObjectPoolManager-ObjectPool对象池"><a href="#ObjectPoolManager-ObjectPool对象池" class="headerlink" title="ObjectPoolManager.ObjectPool对象池"></a>ObjectPoolManager.ObjectPool对象池</h4><p>主要关注以下几个字段：</p>
+<ul>
+<li><p>m_Objects：该字段类型为GameFramework内封装的数据结构GameFrameworkMultiDictionary&lt;string, Object<T>&gt;，与C#字典类似，不同的在于该结构是一个键（key）对应多个值（value）。键（key）存储的是对象的Name,值（value）存储的是拥有相同Name的对象集合。</T></p>
+</li>
+<li><p>m_ObjectMap：该字段的键（key）存储的是ObjectBase中具体的对象，值（value）存储的是Object。</p>
+</li>
+<li><p>m_AllowMultiSpawn：该属性为false的时候不被允许多次使用，为ture的时候，表示允许对象被多次获取，一般情况下不允许这种做法，该字段的主要表现在GameFramework的资源模块中，因为资源对象我们只需要其在内存中存在一份即可（例如Unity的资源）。</p>
+</li>
+</ul>
+<p>主要关注以下几个方法：</p>
+<ul>
+<li>Register：创建对象，首先判断创建的对象是否为空，不为空的时候，利用Object的内部方法创建对应的对象，并将其添加到m_Objects，与m_ObjectMap当中，随后判断当前对象池中对象的数量是否大于对象池容量，大于则释放对象池中的可释放对象。</li>
+<li>Spawn：获取对象，判断对象名称是否为空，为空抛出异常，随后m_Objects存在这个key,则出去对应的Object集合，并检查是否有可以使用的，若存在则返回对应的对象（ObjectBase）。</li>
+<li>Unspawn：回收对象，首先判断回收的对象是否为空，不为空的时候调用内部方法GetObject获取Object对象，如果该对象没有通过Register注册到对象池中，会抛出错误。</li>
+<li>GetAllObjectInfos：该方法返回ObjectInfo结构体数组，包含对象池内所有物体的信息，在GF里面主要展示在Inspector面板上。</li>
+<li>Release：释放对象池中的可释放对象。该接口可以直接调用，也可以间接调用，其主要目的是每过一段时间就可以释放对象，这个时间是由AutoReleaseInterval属性决定，不同的对象池的释放时间间隔不同，Release过程会先获取可释放对象序列，然后通过委托ReleaseObjectFilterCallback对可释放物体序列进行筛选后，最后仅对筛选后的对象调用ReleaseObject进行释放。</li>
+<li>DefaultReleaseObjectFilterCallback是ReleaseObjectFilterCallback委托类型方法，这个方法负责筛选符合要求的对象进行释放。我们如果要特殊要求，则可以在构造函数调用时传入自定义的方法。</li>
+<li>ReleaseObject：释放对象，该方法会从m_Objects，m_ObjectMap中移除对应的对象，等等释放流程。</li>
+</ul>
+<h3 id="对象池管理器部分"><a href="#对象池管理器部分" class="headerlink" title="对象池管理器部分"></a>对象池管理器部分</h3><h4 id="ObjectPoolManager对象池管理器"><a href="#ObjectPoolManager对象池管理器" class="headerlink" title="ObjectPoolManager对象池管理器"></a>ObjectPoolManager对象池管理器</h4><ul>
+<li><p>对象池管理器用Dictionary&lt;TypeNamePair, ObjectPoolBase&gt;类型存储所有的对象池，TypeNamePair储存对象类型、名称。</p>
+</li>
+<li><p>CreateSingleSpawnObjectPool：创建一个对象同时只能被获取一次的对象池。</p>
+</li>
+<li><p>CreateMultiSpawnObjectPool：创建一个对象能被同时获取多次的对象池。</p>
+<p>等等一些查询对象池功能，以及一些释放对象功能等等，主要销毁对象池等功能。</p>
+</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><ul>
+<li>首先创建一个管理需要使用对象池的目标对象（即使用的对象池的目标物体）的类，并且该类需要继承ObjectBase，并且在该类当中新增一个创建该对象的接口，通过调用引用池ReferencePool.Acquire创建该对象，并且初始化该对象并将目标对象传入其中。最后实现Release。</li>
+<li>在管理目标对象池的的类当中创建对象池，传入对象的相关的参数，并用IObjectPool接口引用对象池。</li>
+<li>通过调用IObjectPool接口的Spawn方法获取管理目标对象的类，若该类不存在则调用IObjectPool的Register注册方法，创建管理目标对象的类。</li>
+<li>当目标对象需要被回收时候调用IObjectPool的Unspawn方法，来回收对象。</li>
+</ul>
+<p>具体可以查看GF的HPBarItemObject、HPBarComponent、HPBarItem。等相关脚本。</p>
+<h2 id="Inspector面板"><a href="#Inspector面板" class="headerlink" title="Inspector面板"></a>Inspector面板</h2><p><img src="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/ObjectPool_ObjectInfo.png"></p>
+<p>Inspector面板可以实时查看对象池的实际情况，更加方便检测。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>相比较引用池，对象池的主要作用是管理具体的游戏物体，适合于管理更加复杂的物体，并且需要用ObjectBase、Object来包装它。所以引用池适合于更加简单的业务，对象池更加适合复杂的业务。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/">https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/GameFramework/">GameFramework</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/" title="任务池-TaskPool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">任务池-TaskPool</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2022/10/11/Unity/Unity/AssetBundle/AssetBundle/" title="AssetBundle"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">AssetBundle</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/" title="任务池-TaskPool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-11</div><div class="title">任务池-TaskPool</div></div></a></div><div><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%BC%95%E7%94%A8%E6%B1%A0-ReferencePool/" title="引用池-ReferencePool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-11</div><div class="title">引用池-ReferencePool</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">对象部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ObjectBase-%E5%AF%B9%E8%B1%A1%E5%9F%BA%E7%B1%BB"><span class="toc-number">2.1.1.</span> <span class="toc-text">ObjectBase 对象基类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ObjectPoolManager-Object"><span class="toc-number">2.1.2.</span> <span class="toc-text">ObjectPoolManager.Object</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%B1%A0%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">对象池部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IObjectPool%E6%8E%A5%E5%8F%A3%E4%B8%8EObjectPoolBase%E5%AF%B9%E8%B1%A1%E6%B1%A0%E5%9F%BA%E7%B1%BB"><span class="toc-number">2.2.1.</span> <span class="toc-text">IObjectPool接口与ObjectPoolBase对象池基类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ObjectPoolManager-ObjectPool%E5%AF%B9%E8%B1%A1%E6%B1%A0"><span class="toc-number">2.2.2.</span> <span class="toc-text">ObjectPoolManager.ObjectPool对象池</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E6%B1%A0%E7%AE%A1%E7%90%86%E5%99%A8%E9%83%A8%E5%88%86"><span class="toc-number">2.3.</span> <span class="toc-text">对象池管理器部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ObjectPoolManager%E5%AF%B9%E8%B1%A1%E6%B1%A0%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-number">2.3.1.</span> <span class="toc-text">ObjectPoolManager对象池管理器</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Inspector%E9%9D%A2%E6%9D%BF"><span class="toc-number">4.</span> <span class="toc-text">Inspector面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">5.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Memory/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/06/06/Unity/Unity/HybridCLR/HybridCLR/" title="HybridCLR">HybridCLR</a><time datetime="2023-06-06T15:53:14.000Z" title="发表于 2023-06-06 23:53:14">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

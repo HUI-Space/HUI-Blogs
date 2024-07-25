@@ -1,0 +1,189 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>任务池-TaskPool | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="作用在GF当中任务池的主要作用是用于网络请求、下载、加载资源。它其实也是引用池的一种表现 结构 TaskPool TaskBase ITaskAgent StartTaskStatus TaskStatus TaskPool TaskInfo    抽象部分TaskBase任务池基类该类的主要作用是抽象出任务的相关参数、例如任务优先级、序列编号、标签、自定义数据、是否完成。并且该抽象类类继承了IR">
+<meta property="og:type" content="article">
+<meta property="og:title" content="任务池-TaskPool">
+<meta property="og:url" content="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="作用在GF当中任务池的主要作用是用于网络请求、下载、加载资源。它其实也是引用池的一种表现 结构 TaskPool TaskBase ITaskAgent StartTaskStatus TaskStatus TaskPool TaskInfo    抽象部分TaskBase任务池基类该类的主要作用是抽象出任务的相关参数、例如任务优先级、序列编号、标签、自定义数据、是否完成。并且该抽象类类继承了IR">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2023-02-11T04:06:49.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:45:06.512Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="GameFramework">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '任务池-TaskPool',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:45:06'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">任务池-TaskPool</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-11T04:06:49.000Z" title="发表于 2023-02-11 12:06:49">2023-02-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:45:06.512Z" title="更新于 2024-07-25 16:45:06">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/GameFramework/">GameFramework</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="任务池-TaskPool"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h2><p>在GF当中任务池的主要作用是用于网络请求、下载、加载资源。它其实也是引用池的一种表现</p>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><ul>
+<li>TaskPool<ul>
+<li>TaskBase</li>
+<li>ITaskAgent</li>
+<li>StartTaskStatus</li>
+<li>TaskStatus</li>
+<li>TaskPool</li>
+<li>TaskInfo</li>
+</ul>
+</li>
+</ul>
+<h3 id="抽象部分"><a href="#抽象部分" class="headerlink" title="抽象部分"></a>抽象部分</h3><h4 id="TaskBase任务池基类"><a href="#TaskBase任务池基类" class="headerlink" title="TaskBase任务池基类"></a>TaskBase任务池基类</h4><p>该类的主要作用是抽象出任务的相关参数、例如任务优先级、序列编号、标签、自定义数据、是否完成。并且该抽象类类继承了IReference并实现其方法。</p>
+<h3 id="ITaskAgent代理接口"><a href="#ITaskAgent代理接口" class="headerlink" title="ITaskAgent代理接口"></a>ITaskAgent代理接口</h3><p>该接口主要作用是抽象出了，获取任务，任务初始化，开始处理任务，任务代理轮询，关闭并清理任务代理，停止正在处理的任务并重置任务代理。</p>
+<h3 id="枚举部分"><a href="#枚举部分" class="headerlink" title="枚举部分"></a>枚举部分</h3><p>StartTaskStatus：开始处理任务的所有状态</p>
+<p>TaskStatus：当前任务的状态。</p>
+<h3 id="对象部分"><a href="#对象部分" class="headerlink" title="对象部分"></a>对象部分</h3><h4 id="TaskPool任务池"><a href="#TaskPool任务池" class="headerlink" title="TaskPool任务池"></a>TaskPool任务池</h4><p>主要关注以下几个容器</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">readonly</span> Stack&lt;ITaskAgent&lt;T&gt;&gt; m_FreeAgents;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">readonly</span> GameFrameworkLinkedList&lt;ITaskAgent&lt;T&gt;&gt; m_WorkingAgents;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">readonly</span> GameFrameworkLinkedList&lt;T&gt; m_WaitingTasks;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>m_FreeAgents：存储维护所有空闲的任务代理。</li>
+<li>m_WorkingAgents：存储所有正在工作状态的代理</li>
+<li>m_WaitingTasks：存储所有等待的任务。</li>
+</ul>
+<p>主要关注以下几个方法：</p>
+<ul>
+<li>AddTask：增加任务，会根据任务的优先级来将其添加到对应的位置。</li>
+<li>Update：任务池轮询，其主要作用是调用ProcessRunningTasks和ProcessWaitingTasks这两个方法。</li>
+<li>ProcessRunningTasks：运行任务，遍历所有工作的代理。判断工作是否完成，未完成则继续执行，任务完成则做一些回收处理。</li>
+<li>ProcessWaitingTasks：主要作用是开始运行任务。如果当前有空闲代理，则取出此代理并加到工作代理链表中，通过代理控制当前任务执行。如果不出错的情况下，就会归到运行中的任务继续处理，直到结束</li>
+</ul>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>可以参考GF的WebRequest(网络请求), Download(下载), LoadResource(加载资源)</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>使用任务的主要作用还是为了让任务能够有秩序的运行，并且有效的避免了GC，需要的时候进行获取，不需要是进行回收。同时也拥有很高的扩展性，不在写重复的代码。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/">https://hui-space.github.io/2023/02/11/GameFramework/GameFramework/%E4%BB%BB%E5%8A%A1%E6%B1%A0-TaskPool/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/GameFramework/">GameFramework</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%BC%95%E7%94%A8%E6%B1%A0-ReferencePool/" title="引用池-ReferencePool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">引用池-ReferencePool</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/" title="对象池-ObjecPool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">对象池-ObjecPool</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%AF%B9%E8%B1%A1%E6%B1%A0-ObjecPool/" title="对象池-ObjecPool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-11</div><div class="title">对象池-ObjecPool</div></div></a></div><div><a href="/HUI-Blogs/2023/02/11/GameFramework/GameFramework/%E5%BC%95%E7%94%A8%E6%B1%A0-ReferencePool/" title="引用池-ReferencePool"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-02-11</div><div class="title">引用池-ReferencePool</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%9C%E7%94%A8"><span class="toc-number">1.</span> <span class="toc-text">作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%84"><span class="toc-number">2.</span> <span class="toc-text">结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%BD%E8%B1%A1%E9%83%A8%E5%88%86"><span class="toc-number">2.1.</span> <span class="toc-text">抽象部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TaskBase%E4%BB%BB%E5%8A%A1%E6%B1%A0%E5%9F%BA%E7%B1%BB"><span class="toc-number">2.1.1.</span> <span class="toc-text">TaskBase任务池基类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ITaskAgent%E4%BB%A3%E7%90%86%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.2.</span> <span class="toc-text">ITaskAgent代理接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E9%83%A8%E5%88%86"><span class="toc-number">2.3.</span> <span class="toc-text">枚举部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E9%83%A8%E5%88%86"><span class="toc-number">2.4.</span> <span class="toc-text">对象部分</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#TaskPool%E4%BB%BB%E5%8A%A1%E6%B1%A0"><span class="toc-number">2.4.1.</span> <span class="toc-text">TaskPool任务池</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="toc-number">3.</span> <span class="toc-text">使用方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">4.</span> <span class="toc-text">总结</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Memory/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/06/06/Unity/Unity/HybridCLR/HybridCLR/" title="HybridCLR">HybridCLR</a><time datetime="2023-06-06T15:53:14.000Z" title="发表于 2023-06-06 23:53:14">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

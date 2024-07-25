@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CLR | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="CLR基础公共语言运行库(CLR：Common Language Runtime)：是一个可由多种编程语言使用的库。主要作用是保证应用和操作系统之间分离。 因此CLR不关心使用哪一种语言，它相当于一种规范，只要编译器是面向CLR的即可 。 CLR核心功能 内存管理 程序集加载 安全性 异常处理 线程同步  源代码编译成托管模块源代码编译编译过程过程如下图所示：  支持CLR的语言通过对应的编译器检">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CLR">
+<meta property="og:url" content="https://hui-space.github.io/2024/07/25/NET/CLR/CLR/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="CLR基础公共语言运行库(CLR：Common Language Runtime)：是一个可由多种编程语言使用的库。主要作用是保证应用和操作系统之间分离。 因此CLR不关心使用哪一种语言，它相当于一种规范，只要编译器是面向CLR的即可 。 CLR核心功能 内存管理 程序集加载 安全性 异常处理 线程同步  源代码编译成托管模块源代码编译编译过程过程如下图所示：  支持CLR的语言通过对应的编译器检">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2024-07-25T08:41:16.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:41:44.262Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="CLR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2024/07/25/NET/CLR/CLR/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CLR',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:41:44'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CLR</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:41:44.262Z" title="更新于 2024-07-25 16:41:44">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/NET/">.NET</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CLR"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="CLR基础"><a href="#CLR基础" class="headerlink" title="CLR基础"></a>CLR基础</h2><p>公共语言运行库(CLR：Common Language Runtime)：是一个可由多种编程语言使用的库。主要作用是保证应用和操作系统之间分离。</p>
+<p>因此CLR不关心使用哪一种语言，它相当于一种规范，<strong>只要编译器是面向CLR的即可</strong> 。</p>
+<h3 id="CLR核心功能"><a href="#CLR核心功能" class="headerlink" title="CLR核心功能"></a>CLR核心功能</h3><ul>
+<li>内存管理</li>
+<li>程序集加载</li>
+<li>安全性</li>
+<li>异常处理</li>
+<li>线程同步</li>
+</ul>
+<h3 id="源代码编译成托管模块"><a href="#源代码编译成托管模块" class="headerlink" title="源代码编译成托管模块"></a>源代码编译成托管模块</h3><h4 id="源代码编译编译过程"><a href="#源代码编译编译过程" class="headerlink" title="源代码编译编译过程"></a>源代码编译编译过程</h4><p>过程如下图所示：</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_0.jpg"></p>
+<p>支持CLR的语言通过对应的编译器检查语法和分析源代码编译成托管模块</p>
+<h4 id="托管模块"><a href="#托管模块" class="headerlink" title="托管模块"></a>托管模块</h4><p>托管模块组成</p>
+<ul>
+<li>PE32或PE32+头<ul>
+<li>PE32能在Windows32位和64位上运行</li>
+<li>PE32+头只能在Windows64位上运行</li>
+</ul>
+</li>
+<li>CLR头：包含托管模块得信息<ul>
+<li>包含CLR版本</li>
+<li>标志（flag）</li>
+<li>托管模块入口方法（Main）MethodDef元数据token以及模块得元数据，资源，强名称</li>
+</ul>
+</li>
+<li>元数据<ul>
+<li>定义的类型和成员</li>
+<li>代码引用的类型和成员</li>
+</ul>
+</li>
+<li>IL代码（中间语言或托管代码）：编译器生成的代码。在CLR中将其编译成CUP指令。</li>
+</ul>
+<h3 id="托管模块合并成程序集"><a href="#托管模块合并成程序集" class="headerlink" title="托管模块合并成程序集"></a>托管模块合并成程序集</h3><p>CLR和程序集工作。程序级对于CLR来说相当于<strong>组件</strong>。编译器默认将生成的托管模块转换成程序集。具体流程如下图所示。</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_1.png"></p>
+<h3 id="加载公共语言运行库"><a href="#加载公共语言运行库" class="headerlink" title="加载公共语言运行库"></a>加载公共语言运行库</h3><p>前提是电脑需要安装.NET Framework。</p>
+<p>具体流程：</p>
+<ul>
+<li>Window检查文件头，决定创建32位还是64位进程。</li>
+<li>加载MSCorEE.dl的对应版本（x86，x64或ARM）</li>
+<li>进程的主线程调用MSCorEE.dll中定义的一个方法</li>
+<li>初始化CLR，加载EXE程序集</li>
+<li>调用入口方法（Main）</li>
+<li>托管应用程序启动并运行</li>
+</ul>
+<p>非托管应用程序加载托管程序集：Window自动加载并初始化CLR并处理程序集中的代码。</p>
+<h3 id="执行程序集的代码"><a href="#执行程序集的代码" class="headerlink" title="执行程序集的代码"></a>执行程序集的代码</h3><p>执行代码的前提条件是将IL转换成CPU指令，因此CLR的JIT编译器将其转换成CPU指令。</p>
+<p>IL代码在运行时编译成本机CPU指令，需要分配更多的非共享内存，并要花费额外</p>
+<p>JIT(just in time) :即时编译器。</p>
+<p>方法的首次调用如下图所示</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_2.png"></p>
+<p>JITCompiler函数被调用流程：</p>
+<ul>
+<li>首先知道调用的方法，以及具体是什么类型定义了该方法</li>
+<li>JITCompiler会在程序集的元数据中查找被调用的方法的IL</li>
+<li>JITCompiler验证IL代码，并将IL代码编译成CPU指令</li>
+<li>本机CPU指令保存到动态分配的内存块中</li>
+<li>JITCompiler回到CLR位类型创建的内部数据结构，找到与被调用方法对应的那条记录，修改最初对JITCompiler的引用，将其指向内存块中的地址</li>
+<li>JITCompiler函数跳转到内存块中的代码，代码执行完毕并返回</li>
+</ul>
+<p>方法的二次调用如下图所示</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_3.png"></p>
+<p>第二次调用同个函数则会直接执行内存块中的代码，完全跳过JITCompiler函数的执行</p>
+<p>方法仅在首次调用时有性能损失，以后调用都以本机代码的形式全速运行，无需重新验证IL并将其编译成本机代码。</p>
+<h2 id="托管堆和垃圾回收"><a href="#托管堆和垃圾回收" class="headerlink" title="托管堆和垃圾回收"></a>托管堆和垃圾回收</h2><h3 id="从托管堆分配资源"><a href="#从托管堆分配资源" class="headerlink" title="从托管堆分配资源"></a>从托管堆分配资源</h3><p>CLR要求所有对象都从托管堆分配。进程初始化时，CLR划出一个地址空间区域作为托管堆。同时维护一个指针，该指针指向下一个对象在堆中分配的位置。最初时该指针指向基地址。</p>
+<p>一个区域被非垃圾对象填满后，CLR会分配更多的区域。直到进程地址空间都被填满。</p>
+<ul>
+<li>32位15.GB</li>
+<li>64位8TB</li>
+</ul>
+<h3 id="对象内存的分配"><a href="#对象内存的分配" class="headerlink" title="对象内存的分配"></a>对象内存的分配</h3><p>C#的 new 操作符导致CLR执行的一下步骤：</p>
+<ul>
+<li>计算类型的字段（以及从基类型继承的字段）所需的字节</li>
+<li>加上对象的开销所需的字节数，每个对象有两个开销字段<ul>
+<li>类型对象指针</li>
+<li>同步块索引</li>
+<li>32位每个对象增加8字节，64位每个对象增加16字节</li>
+</ul>
+</li>
+<li>CLR检查区域中是否有分配对象所需的字节数<ul>
+<li>托管堆有足够的空间时，就在CLR维护的指针指向的地址处存放对象，为对象分配的字节会被清零</li>
+<li>CLR维护的指针的值会加上对象占用的字节数来得到新的地址</li>
+<li>调用类型的构造器，同时传入指针地址，new操作符返回对象的引用</li>
+</ul>
+</li>
+</ul>
+<h3 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h3><p>CLR采用的是引用跟踪算法，当CLR没有足够的空间来分配对象时，就会触发垃圾回收。CLR开始GC时，首先暂停进程中的所有线程。这样可以防止线程在CLR检查期间访问对象并更改其状态。</p>
+<p>具体实现步骤如下：</p>
+<ul>
+<li>CLR开始后会暂停所有线程。(目的是防止线程在CLR检查期间访问对象并更改其状态)</li>
+<li>CLR进入GC的标记阶段。(CLR遍历堆中的所有对象，将同步块索引字段中的一位设为0，表名该对象应删除)</li>
+<li>CLR检查所有活动根，并查看引用对象。(若根包含null，CLR则忽略)</li>
+<li>检查完毕后，堆中对象有两种状态<ul>
+<li>已标记：存在至少一个根引用它，不能被垃圾回收，</li>
+<li>未标记：不存在被访问的根， 会被垃圾回收</li>
+</ul>
+</li>
+<li>GC进入压缩（compact <strong>碎片整理</strong>）阶段，将保留对象，分配在连续的内存空间当中。(解决了堆的空间碎片化问题)</li>
+<li>CLR从每个根减去所引用的对象在内存中偏移的字节数，这样保证了每个根的引用对象为同一个对象。对象只在内存中变化了位置</li>
+<li>CLR维护的指针指向最后一个对象之后的位置</li>
+</ul>
+<p>回收前，回收后如下图所示：</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_4.png"></p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_5.png"></p>
+<p>需要注意的是进程的内存以耗尽时，分配更多的内存则会抛出异常，WIndow将终止进程并回收进程使用的全部内存。</p>
+<h3 id="代：提升性能"><a href="#代：提升性能" class="headerlink" title="代：提升性能"></a>代：提升性能</h3><p>CLR的GC是基于代的垃圾回收器，主要依据是以下三个条件</p>
+<ul>
+<li>对象越新，生存期越短</li>
+<li>对象越老，生存期越长</li>
+<li>回收堆的一部分，速度快于回收整个堆</li>
+</ul>
+<p>CLR包含了三代，分别为三代提供预算容量，具体实现步骤如下</p>
+<ul>
+<li>CLR初始化会为三代提供一个预算容量</li>
+<li>第0代<ul>
+<li>初始化的对象会被存入到第0代当中</li>
+<li>当第0代的容量超过预算，则会触发一次GC，<ul>
+<li>此时GC会判断第1代是否超过容量</li>
+<li>未超过容量，此时GC只会检查第0代中的对象</li>
+</ul>
+</li>
+<li>若第1代还有余量，随后将保留下来的对象存储到第1代当中</li>
+<li>此时第0代的暂时时空的，重复上述步骤直到第1代容量超出预算</li>
+</ul>
+</li>
+<li>第1代<ul>
+<li>当第1代的容量超出预算时</li>
+<li>GC则会先检查第1代中的对象，然后检查第0代中的对象</li>
+<li>将第1代中保留下来的对象提升至第2代中，第0代中的对象保留代第1代中</li>
+</ul>
+</li>
+<li>第2代<ul>
+<li>当第2代的容量超出预算时</li>
+<li>GC则会先检查第2代中的对象，然后检查第1代中的对象，再检查第0代中的对象</li>
+<li>如若还是不够则会抛出内存不足的异常</li>
+</ul>
+</li>
+</ul>
+<p>值得注意的是GC会根据实际情况动态调整整个代的容量情况</p>
+<h3 id="GC触发条件"><a href="#GC触发条件" class="headerlink" title="GC触发条件"></a>GC触发条件</h3><ul>
+<li>分配内存超出预算时</li>
+<li>代码显示调用System.GC的静态Collect方法</li>
+<li>Windows报告低内存情况</li>
+<li>CLR正在卸载AppDomain</li>
+<li>CLR正在关闭</li>
+</ul>
+<h2 id="CLR寄宿和AppDomain"><a href="#CLR寄宿和AppDomain" class="headerlink" title="CLR寄宿和AppDomain"></a>CLR寄宿和AppDomain</h2><h3 id="CLR寄宿"><a href="#CLR寄宿" class="headerlink" title="CLR寄宿"></a>CLR寄宿</h3><p>.NET Framework在Windows平台运行的前提条件是所有托管模块和程序集文件都必须使用Windows PE文件格式，或者.exe、.dll。</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_6.png"></p>
+<h3 id="AppDomain-应用域"><a href="#AppDomain-应用域" class="headerlink" title="AppDomain(应用域)"></a>AppDomain(应用域)</h3><p>AppDomain是一组程序集的逻辑容器。它存在的意义是为了提供隔离。</p>
+<p>CLR初始化时创建第一个AppDomain(应用域)，该应用域仅在进程终止时才会被销毁</p>
+<p>AppDomain(应用域)的具体功能</p>
+<p><img src="/HUI-Blogs/2024/07/25/NET/CLR/CLR/CLR_7.png"></p>
+<h2 id="计算限制的异步操作"><a href="#计算限制的异步操作" class="headerlink" title="计算限制的异步操作"></a>计算限制的异步操作</h2><p>CLR线程池基础</p>
+<p>CLR包含了代码管理它的线程池。线程池是你的应用程序使用的线程集合。</p>
+<p><img src="../../images/CLR/CLR_8.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2024/07/25/NET/CLR/CLR/">https://hui-space.github.io/2024/07/25/NET/CLR/CLR/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/CLR/">CLR</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">对象池模式</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Hexo</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#CLR%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">CLR基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD"><span class="toc-number">1.1.</span> <span class="toc-text">CLR核心功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E6%88%90%E6%89%98%E7%AE%A1%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.</span> <span class="toc-text">源代码编译成托管模块</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BA%90%E4%BB%A3%E7%A0%81%E7%BC%96%E8%AF%91%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B"><span class="toc-number">1.2.1.</span> <span class="toc-text">源代码编译编译过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E6%A8%A1%E5%9D%97"><span class="toc-number">1.2.2.</span> <span class="toc-text">托管模块</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E6%A8%A1%E5%9D%97%E5%90%88%E5%B9%B6%E6%88%90%E7%A8%8B%E5%BA%8F%E9%9B%86"><span class="toc-number">1.3.</span> <span class="toc-text">托管模块合并成程序集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E8%BD%BD%E5%85%AC%E5%85%B1%E8%AF%AD%E8%A8%80%E8%BF%90%E8%A1%8C%E5%BA%93"><span class="toc-number">1.4.</span> <span class="toc-text">加载公共语言运行库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%A7%E8%A1%8C%E7%A8%8B%E5%BA%8F%E9%9B%86%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-number">1.5.</span> <span class="toc-text">执行程序集的代码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%98%E7%AE%A1%E5%A0%86%E5%92%8C%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-number">2.</span> <span class="toc-text">托管堆和垃圾回收</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%8E%E6%89%98%E7%AE%A1%E5%A0%86%E5%88%86%E9%85%8D%E8%B5%84%E6%BA%90"><span class="toc-number">2.1.</span> <span class="toc-text">从托管堆分配资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E8%B1%A1%E5%86%85%E5%AD%98%E7%9A%84%E5%88%86%E9%85%8D"><span class="toc-number">2.2.</span> <span class="toc-text">对象内存的分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="toc-number">2.3.</span> <span class="toc-text">垃圾回收算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%EF%BC%9A%E6%8F%90%E5%8D%87%E6%80%A7%E8%83%BD"><span class="toc-number">2.4.</span> <span class="toc-text">代：提升性能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GC%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="toc-number">2.5.</span> <span class="toc-text">GC触发条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CLR%E5%AF%84%E5%AE%BF%E5%92%8CAppDomain"><span class="toc-number">3.</span> <span class="toc-text">CLR寄宿和AppDomain</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR%E5%AF%84%E5%AE%BF"><span class="toc-number">3.1.</span> <span class="toc-text">CLR寄宿</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AppDomain-%E5%BA%94%E7%94%A8%E5%9F%9F"><span class="toc-number">3.2.</span> <span class="toc-text">AppDomain(应用域)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E9%99%90%E5%88%B6%E7%9A%84%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C"><span class="toc-number">4.</span> <span class="toc-text">计算限制的异步操作</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Memory/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/06/06/Unity/Unity/HybridCLR/HybridCLR/" title="HybridCLR">HybridCLR</a><time datetime="2023-06-06T15:53:14.000Z" title="发表于 2023-06-06 23:53:14">2023-06-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
