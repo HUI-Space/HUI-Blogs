@@ -1,7 +1,8 @@
 ---
 title: Hexo
-date: 2024-07-24 18:20:29
-tags: 
+date: 2024-07-25 16:39:54
+categories: Node.js
+tags: Hexo
 ---
 
 ## 简介
@@ -209,6 +210,11 @@ git push origin hexo （注意这里推送到hexo分支）
 - 把主题文件夹中的 `_config.yml` 重命名为 `_config.butterfly.yml`，复制到 `Hexo` 根目录下与`_config.yml`同级。
 
 - 修改项目根目录下的`_config.yml`文件（称为站点配置文件），开启主题。
+
+相关教程地址：
+
+- [【Hexo】Hexo搭建Butterfly主题并快速美化_hexo butterfly-CSDN博客](https://blog.csdn.net/mjh1667002013/article/details/129290903)
+- [Butterfly 安裝文檔(一) 快速開始 | Butterfly](https://butterfly.js.org/posts/21cfbf15/)
 
 ## 遇到的问题
 
