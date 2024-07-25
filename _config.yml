@@ -13,7 +13,7 @@ timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: https://hui-space.github.io/HUI-Blogs
+url: https://hui-space.github.io
 root: /HUI-Blogs/
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -41,7 +41,10 @@ external_link:
   exclude: ''
 filename_case: 0
 render_drafts: false
-post_asset_folder: false
+post_asset_folder: true
+marked:
+  prependRoot: false #引用资源是否需要文件名称 例如 ：2024/07/24/Hexo/20240724180559.png 变为true 后 为“2024/07/24/Hexo/Hexo/20240724180559.png
+  postAsset: false
 relative_link: false
 future: true
 syntax_highlighter: highlight.js
@@ -103,5 +106,5 @@ theme: landscape
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repo: https://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@github.com/HUI-Space/HUI-Blogs.git
+  repo: git@github.com:HUI-Space/HUI-Blogs.git
   branch: main
