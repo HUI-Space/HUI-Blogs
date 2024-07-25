@@ -188,6 +188,28 @@ git push origin hexo （注意这里推送到hexo分支）
 - 新增的博客内容则需要使用上诉命令进行提交
 - 新电脑则需克隆 hexo 分支即可达成多电脑使用同一个hexo环境
 
+## 修改主图
+
+这里以安装butterfly主题为例
+
+[butterfly](https://github.com/jerryc127/hexo-theme-butterfly)
+
+- 在`hexo`项目根目录下下载主题。
+
+  - ```
+    git clone -b master https://github.com/jerryc127/hexo-theme-butterfly.git themes/butterfly
+    ```
+
+- 安装`pug` 和 `stylus` 渲染器。
+
+  - ```
+    npm install hexo-renderer-pug hexo-renderer-stylus --save
+    ```
+
+- 把主题文件夹中的 `_config.yml` 重命名为 `_config.butterfly.yml`，复制到 `Hexo` 根目录下与`_config.yml`同级。
+
+- 修改项目根目录下的`_config.yml`文件（称为站点配置文件），开启主题。
+
 ## 遇到的问题
 
 ### 排版问题
@@ -204,3 +226,16 @@ https://hui-space.github.io/HUI-Blogs/
 
 随后再次提交，外网的博客排版就能正常显示。
 
+### 插图
+
+- 修改_config.yml配置文件中的 post_asset_folder 参数为true，其主要目的是使用命令（hexo new “title”）创建新的Markdown文件时候会在同目录下创建出相同的文件夹如下图：
+
+![image-20240725143859692](Hexo/image-20240725143859692.png)
+
+![image-20240725143925294](Hexo/image-20240725143925294.png)
+
+- 修改Markdown的设置，这样我们粘贴图片到Markdown时候图片会自动保存在创建的文件下，则不需要手动添加，如下图：
+
+![image-20240725144008541](Hexo/image-20240725144008541.png)
+
+- 随后使用hexo相关命令提交即可达到插入图片，并在网站上显示图片的效果。
