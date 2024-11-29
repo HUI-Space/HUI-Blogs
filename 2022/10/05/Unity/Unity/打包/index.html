@@ -1,0 +1,216 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>打包 | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="环境 Unity Android Studio JDK  Unity打包打包步骤：  使用UnityHub为对应的Unity版本添加模块，安装对应的Android Build Support 打开项目将Unity平台切换到Android平台 通过Unity PlayerSetting设置相关打包参数 设置Build Settings设置Android相关参数 点击Build Settings &amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="打包">
+<meta property="og:url" content="https://hui-space.github.io/2022/10/05/Unity/Unity/%E6%89%93%E5%8C%85/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="环境 Unity Android Studio JDK  Unity打包打包步骤：  使用UnityHub为对应的Unity版本添加模块，安装对应的Android Build Support 打开项目将Unity平台切换到Android平台 通过Unity PlayerSetting设置相关打包参数 设置Build Settings设置Android相关参数 点击Build Settings &amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-10-05T03:50:08.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:55:02.157Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="Unity Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2022/10/05/Unity/Unity/%E6%89%93%E5%8C%85/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '打包',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:55:02'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">打包</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-05T03:50:08.000Z" title="发表于 2022-10-05 11:50:08">2022-10-05</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:55:02.157Z" title="更新于 2024-07-25 16:55:02">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/Unity/">Unity</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="打包"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Unity</li>
+<li>Android Studio</li>
+<li>JDK</li>
+</ul>
+<h2 id="Unity打包"><a href="#Unity打包" class="headerlink" title="Unity打包"></a>Unity打包</h2><p>打包步骤：</p>
+<ul>
+<li>使用UnityHub为对应的Unity版本添加模块，安装对应的Android Build Support</li>
+<li>打开项目将Unity平台切换到Android平台</li>
+<li>通过Unity PlayerSetting设置相关打包参数</li>
+<li>设置Build Settings设置Android相关参数</li>
+<li>点击Build Settings &gt; Android &gt; Build选择对应打包的目录进行打包即可</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>切记路径全为英文，出现中文则可能导致打包失败</li>
+<li>切记使用Unity仅在编辑器相关API的时候，添加上对应的宏，否则会导致打包失败</li>
+<li>引用外部文件时候切记放置到目标目录</li>
+<li>使用外部文件时候建议新建工程，打包测试是否有未引用的文件（在使用Protobuf时文件未全部引用导致打包出错）</li>
+<li>持续更新TODO</li>
+</ul>
+<h2 id="Android打包"><a href="#Android打包" class="headerlink" title="Android打包"></a>Android打包</h2><p>打包步骤：</p>
+<ul>
+<li>将Unity中Preferences &gt; External Tools 中的Android SDK切换到Android Studio编辑器对应的SDK路径（此步骤避免导出工程后出现SDK不匹配Android Studio编译错误）</li>
+<li>勾选Build Settings &gt; Android 中的 Export Project 此时Build按钮切换成Export</li>
+<li>选择对应的打包目录进行导出即可</li>
+<li>使用Android Studio打开导出对应的目录，等待编译</li>
+<li>如果需要给APK签名，点击Build &gt; Generate Signed Bundle or APK，选择APK点击Next输入相关的内容</li>
+<li>点击Android Studio的Build &gt; Build Bundle(s) &#x2F;APK(s) &gt;Build APK(s)。 </li>
+<li>生成的APK包在build &gt; outputs &gt; apk &gt; debug 文件夹下</li>
+</ul>
+<p>注意事项：</p>
+<ul>
+<li>Unity与Android Studio使用的SDK最好使用同一个版本的SDK，这样可以避免不必要的bug发生</li>
+<li>持续更新TODO</li>
+</ul>
+<h2 id="Android项目结构解析"><a href="#Android项目结构解析" class="headerlink" title="Android项目结构解析"></a>Android项目结构解析</h2><p>通过<a href>打包</a>中的Android打包，导出项目后通过Android Studio打开项目可以看到以下结构</p>
+<p><img src="../../../../../Blog/source/_posts/images/ExportAndroidProjectStructure.jpeg"></p>
+<h3 id="launcher"><a href="#launcher" class="headerlink" title="launcher"></a>launcher</h3><p>为app模块，几乎没有代码</p>
+<h4 id="AndroidManifest"><a href="#AndroidManifest" class="headerlink" title="AndroidManifest"></a>AndroidManifest</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span> <span class="attr">package</span>=<span class="string">&quot;com.DefaultCompany.TestUnity&quot;</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span> <span class="attr">android:installLocation</span>=<span class="string">&quot;preferExternal&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">supports-screens</span> <span class="attr">android:smallScreens</span>=<span class="string">&quot;true&quot;</span> <span class="attr">android:normalScreens</span>=<span class="string">&quot;true&quot;</span> <span class="attr">android:largeScreens</span>=<span class="string">&quot;true&quot;</span> <span class="attr">android:xlargeScreens</span>=<span class="string">&quot;true&quot;</span> <span class="attr">android:anyDensity</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:label</span>=<span class="string">&quot;@string/app_name&quot;</span> <span class="attr">android:icon</span>=<span class="string">&quot;@mipmap/app_icon&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unity.builder&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;\1374538386356&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>其中主要记录了：</p>
+<ul>
+<li>package：包名，可以在Unity当中的修改（修改路径：Project Settings &gt; Other Settings &gt; Identification &gt; Override Default Package Name &gt; Package Name）</li>
+<li>supports-screens：支持的屏幕</li>
+<li>android:label：app名称</li>
+<li>android:icon：app图标</li>
+<li>uses-permission ：相关权限</li>
+</ul>
+<p>以上参数基本上都可在Unity当中修改</p>
+<h3 id="unityLibreary"><a href="#unityLibreary" class="headerlink" title="unityLibreary"></a>unityLibreary</h3><p>主要是unity场景资源和代码文件</p>
+<h4 id="AndroidManifest-1"><a href="#AndroidManifest-1" class="headerlink" title="AndroidManifest"></a>AndroidManifest</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">manifest</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span> <span class="attr">package</span>=<span class="string">&quot;com.unity3d.player&quot;</span> <span class="attr">xmlns:tools</span>=<span class="string">&quot;http://schemas.android.com/tools&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">application</span> <span class="attr">android:extractNativeLibs</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">&quot;com.unity3d.player.UnityPlayerActivity&quot;</span> <span class="attr">android:theme</span>=<span class="string">&quot;@style/UnityThemeSelector&quot;</span> <span class="attr">android:screenOrientation</span>=<span class="string">&quot;fullUser&quot;</span> <span class="attr">android:launchMode</span>=<span class="string">&quot;singleTask&quot;</span> <span class="attr">android:configChanges</span>=<span class="string">&quot;mcc|mnc|locale|touchscreen|keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize|fontScale|layoutDirection|density&quot;</span> <span class="attr">android:resizeableActivity</span>=<span class="string">&quot;false&quot;</span> <span class="attr">android:hardwareAccelerated</span>=<span class="string">&quot;false&quot;</span> <span class="attr">android:exported</span>=<span class="string">&quot;true&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.action.MAIN&quot;</span> /&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">&quot;android.intent.category.LAUNCHER&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unityplayer.UnityActivity&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;android.notch_support&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;true&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unity.splash-mode&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;0&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unity.splash-enable&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;True&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unity.launch-fullscreen&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;True&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;unity.allow-resizable-window&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;False&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;notch.config&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;portrait|landscape&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">application</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:glEsVersion</span>=<span class="string">&quot;0x00030000&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">&quot;android.hardware.vulkan.version&quot;</span> <span class="attr">android:required</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.INTERNET&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.ACCESS_NETWORK_STATE&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">&quot;android.hardware.touchscreen&quot;</span> <span class="attr">android:required</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">&quot;android.hardware.touchscreen.multitouch&quot;</span> <span class="attr">android:required</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">uses-feature</span> <span class="attr">android:name</span>=<span class="string">&quot;android.hardware.touchscreen.multitouch.distinct&quot;</span> <span class="attr">android:required</span>=<span class="string">&quot;false&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>activity：是安卓当中的组件，主要和用户进行交互，做为其他物体的载体存在。并且activity必须配置到AndroidManifest当中才能够使用。</li>
+<li>action android:name&#x3D;”android.intent.action.MAIN”：当前这个activity是主activity，当我们程序启动首先运行主activity</li>
+</ul>
+<h4 id="UnityPlayerActivity"><a href="#UnityPlayerActivity" class="headerlink" title="UnityPlayerActivity"></a>UnityPlayerActivity</h4><p>通常情况下新建Activity继承UnityPlayerActivity，就可以为其新增新的功能。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2022/10/05/Unity/Unity/%E6%89%93%E5%8C%85/">https://hui-space.github.io/2022/10/05/Unity/Unity/%E6%89%93%E5%8C%85/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/Unity-Android/">Unity Android</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%E6%8E%A5%E5%85%A5SDK(Android)/" title="Unity接入SDK(Android)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Unity接入SDK(Android)</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2022/10/04/Unity/Unity/Android%E6%89%93%E5%8C%85/" title="Android打包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Android打包</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/HUI-Blogs/2022/10/04/Unity/Unity/Android%E6%89%93%E5%8C%85/" title="Android打包"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-04</div><div class="title">Android打包</div></div></a></div><div><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%E4%B8%8EAndroid%E4%BA%A4%E4%BA%92/" title="Unity与Android交互"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-05</div><div class="title">Unity与Android交互</div></div></a></div><div><a href="/HUI-Blogs/2022/10/05/Unity/Unity/Unity%E6%8E%A5%E5%85%A5SDK(Android)/" title="Unity接入SDK(Android)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-05</div><div class="title">Unity接入SDK(Android)</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Unity%E6%89%93%E5%8C%85"><span class="toc-number">2.</span> <span class="toc-text">Unity打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E6%89%93%E5%8C%85"><span class="toc-number">3.</span> <span class="toc-text">Android打包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Android%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84%E8%A7%A3%E6%9E%90"><span class="toc-number">4.</span> <span class="toc-text">Android项目结构解析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#launcher"><span class="toc-number">4.1.</span> <span class="toc-text">launcher</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AndroidManifest"><span class="toc-number">4.1.1.</span> <span class="toc-text">AndroidManifest</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unityLibreary"><span class="toc-number">4.2.</span> <span class="toc-text">unityLibreary</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AndroidManifest-1"><span class="toc-number">4.2.1.</span> <span class="toc-text">AndroidManifest</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#UnityPlayerActivity"><span class="toc-number">4.2.2.</span> <span class="toc-text">UnityPlayerActivity</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/11/29/Unity/Unity/Accelerator/" title="Accelerator">Accelerator</a><time datetime="2024-11-29T07:06:22.000Z" title="发表于 2024-11-29 15:06:22">2024-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

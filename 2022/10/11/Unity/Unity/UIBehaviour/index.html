@@ -1,0 +1,159 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>UIBehaviour | HUI-Space</title><meta name="author" content="HUI"><meta name="copyright" content="HUI"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="简介UIBehaviour是所有UI组件的基类，UI组件都直接或间接继承该抽象类。 代码解析12345678910111213UIBehaviour#if UNITY_EDITOR									   &#x2F;&#x2F;编辑器下调用protected virtual void OnValidate()						&#x2F;&#x2F;脚本Inspector面板的值出现变化的时候会被调用protected virtual voi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIBehaviour">
+<meta property="og:url" content="https://hui-space.github.io/2022/10/11/Unity/Unity/UIBehaviour/index.html">
+<meta property="og:site_name" content="HUI-Space">
+<meta property="og:description" content="简介UIBehaviour是所有UI组件的基类，UI组件都直接或间接继承该抽象类。 代码解析12345678910111213UIBehaviour#if UNITY_EDITOR									   &#x2F;&#x2F;编辑器下调用protected virtual void OnValidate()						&#x2F;&#x2F;脚本Inspector面板的值出现变化的时候会被调用protected virtual voi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png">
+<meta property="article:published_time" content="2022-10-11T15:54:23.000Z">
+<meta property="article:modified_time" content="2024-07-25T08:53:20.341Z">
+<meta property="article:author" content="HUI">
+<meta property="article:tag" content="UGUI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png"><link rel="shortcut icon" href="/HUI-Blogs/img/favicon.png"><link rel="canonical" href="https://hui-space.github.io/2022/10/11/Unity/Unity/UIBehaviour/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/HUI-Blogs/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/HUI-Blogs/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'UIBehaviour',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-07-25 16:53:20'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background: transparent !important"><nav id="nav"><span id="blog-info"><a href="/HUI-Blogs/" title="HUI-Space"><span class="site-name">HUI-Space</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/HUI-Blogs/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/archives/"><i class="fa-fw fas fa-archive"></i><span> 归档</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/HUI-Blogs/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">UIBehaviour</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-10-11T15:54:23.000Z" title="发表于 2022-10-11 23:54:23">2022-10-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-07-25T08:53:20.341Z" title="更新于 2024-07-25 16:53:20">2024-07-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/HUI-Blogs/categories/Unity/">Unity</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="UIBehaviour"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>UIBehaviour是所有UI组件的基类，UI组件都直接或间接继承该抽象类。</p>
+<h2 id="代码解析"><a href="#代码解析" class="headerlink" title="代码解析"></a>代码解析</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">UIBehaviour</span><br><span class="line">#if UNITY_EDITOR									   //编辑器下调用</span><br><span class="line">protected virtual void OnValidate()						//脚本Inspector面板的值出现变化的时候会被调用</span><br><span class="line">protected virtual void Reset()   						//恢复成默认值</span><br><span class="line">#endif</span><br><span class="line">protected virtual void OnRectTransformDimensionsChange()  //当RectTransform变化时调用</span><br><span class="line">protected virtual void OnBeforeTransformParentChanged()	  //当父物体变化之前调用</span><br><span class="line">protected virtual void OnTransformParentChanged()		 //当父物体变化之后调用</span><br><span class="line">protected virtual void OnDidApplyAnimationProperties()	 //当应用动画属性时调用</span><br><span class="line">protected virtual void OnCanvasGroupChanged()			//Canvas Group 变化时候调用</span><br><span class="line">protected virtual void OnCanvasHierarchyChanged()		//当Canvas状态变化时调用，比如禁用Canvas组件</span><br><span class="line">public bool IsDestroyed()							  //是否被销毁</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://hui-space.github.io">HUI</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://hui-space.github.io/2022/10/11/Unity/Unity/UIBehaviour/">https://hui-space.github.io/2022/10/11/Unity/Unity/UIBehaviour/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://hui-space.github.io" target="_blank">HUI-Space</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/HUI-Blogs/tags/UGUI/">UGUI</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/HUI-Blogs/2022/10/11/Unity/Unity/UGUI%E6%98%BE%E7%A4%BA%E7%89%B9%E6%95%88/" title="UGUI显示特效"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">UGUI显示特效</div></div></a></div><div class="next-post pull-right"><a href="/HUI-Blogs/2022/10/11/Unity/Unity/CanvasUpdateRegistry/" title="CanvasUpdateRegistry"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">CanvasUpdateRegistry</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/HUI-Blogs/2022/10/11/Unity/Unity/ICanvasElement/" title="ICanvasElement"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-11</div><div class="title">ICanvasElement</div></div></a></div><div><a href="/HUI-Blogs/2022/10/11/Unity/Unity/UGUI%E6%98%BE%E7%A4%BA%E7%89%B9%E6%95%88/" title="UGUI显示特效"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-11</div><div class="title">UGUI显示特效</div></div></a></div><div><a href="/HUI-Blogs/2022/10/11/Unity/Unity/CanvasUpdateRegistry/" title="CanvasUpdateRegistry"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-10-11</div><div class="title">CanvasUpdateRegistry</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://i.loli.net/2021/02/24/5O1day2nriDzjSu.png" onerror="this.onerror=null;this.src='/HUI-Blogs/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">HUI</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/HUI-Blogs/archives/"><div class="headline">文章</div><div class="length-num">21</div></a><a href="/HUI-Blogs/tags/"><div class="headline">标签</div><div class="length-num">12</div></a><a href="/HUI-Blogs/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E6%9E%90"><span class="toc-number">2.</span> <span class="toc-text">代码解析</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/11/29/Unity/Unity/Accelerator/" title="Accelerator">Accelerator</a><time datetime="2024-11-29T07:06:22.000Z" title="发表于 2024-11-29 15:06:22">2024-11-29</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/DesignPatterns/DesignPatterns/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E6%A8%A1%E5%BC%8F/" title="对象池模式">对象池模式</a><time datetime="2024-07-25T08:42:37.000Z" title="发表于 2024-07-25 16:42:37">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/NET/CLR/CLR/" title="CLR">CLR</a><time datetime="2024-07-25T08:41:16.000Z" title="发表于 2024-07-25 16:41:16">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2024/07/25/Node-js/Hexo/Hexo/" title="Hexo">Hexo</a><time datetime="2024-07-25T08:39:54.000Z" title="发表于 2024-07-25 16:39:54">2024-07-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/HUI-Blogs/2023/08/06/Unity/Unity/Unity%20Memory/" title="Unity Memory">Unity Memory</a><time datetime="2023-08-06T03:50:08.000Z" title="发表于 2023-08-06 11:50:08">2023-08-06</time></div></div></div></div></div></div></main><footer id="footer" style="background: transparent !important"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By HUI</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/HUI-Blogs/js/utils.js?v=4.13.0"></script><script src="/HUI-Blogs/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
