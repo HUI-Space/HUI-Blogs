@@ -13,12 +13,11 @@ menu:
   归档: /archives/ || fas fa-archive
   标签: /tags/ || fas fa-tags
   分类: /categories/ || fas fa-folder-open
-  关于: /about/ || fas fa-heart
   #菜单||fas fa-list:
-  #音乐: /music/ || fas fa-music
-  #电影: /movies/ || fas fa-video
+   #音乐: /music/ || fas fa-music
+   #电影: /movies/ || fas fa-video
   #友链: /link/ || fas fa-link
-  
+  关于: /about/ || fas fa-heart
 
 # 主页副标题
 title: Hexo

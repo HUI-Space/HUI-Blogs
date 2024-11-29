@@ -179,7 +179,7 @@ hexo d
 
 ```
 git add .
-git commit –m add_branch
+git commit –m "add_branch"
 git push origin hexo （注意这里推送到hexo分支）
 ```
 
@@ -215,6 +215,21 @@ git push origin hexo （注意这里推送到hexo分支）
 
 - [【Hexo】Hexo搭建Butterfly主题并快速美化_hexo butterfly-CSDN博客](https://blog.csdn.net/mjh1667002013/article/details/129290903)
 - [Butterfly 安裝文檔(一) 快速開始 | Butterfly](https://butterfly.js.org/posts/21cfbf15/)
+
+## 常用命令
+
+```
+hexo n "postName" # 新建文章，文章路径为 source/_posts
+hexo new page --path _posts/Unity/Accelerator/Accelerator "Accelerator # 新建文章 source/_posts/Unity/Accelerator/Accelerator 目录：
+hexo new draft "draftName"  # 新建草稿，不会发布至你的网站，文章路径为 source/_drafts
+hexo new page "pageName"  # 新建页面，文章路径为 source
+hexo publish draft "draftName"  # 将草稿进行发布
+hexo clean  # 清除缓存，建议每次部署时先执行该命令，再生成静态页面
+hexo g  # 生成静态页面至 public 目录
+hexo s  # 开启预览访问端口(默认端口 4000，‘ctrl+c’ 关闭 server)
+hexo d  # 将文件进行部署
+hexo help # 查看帮助
+```
 
 ## 遇到的问题
 
