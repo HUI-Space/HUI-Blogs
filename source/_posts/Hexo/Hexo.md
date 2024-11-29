@@ -179,7 +179,7 @@ hexo d
 
 ```
 git add .
-git commit –m "add_branch"
+git commit -m "add_branch"
 git push origin hexo （注意这里推送到hexo分支）
 ```
 
